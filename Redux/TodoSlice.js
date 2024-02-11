@@ -1,16 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = {
+  todos: [],
+  onGoingTodos: [],
+};
 
 const todoSlices = createSlice({
   name: "todo",
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      state.push(action.payload);
+      state.todos.push(action.payload);
     },
     deleteTodo: (state, action) => {
-      state.splice(action.payload, 1);
+      state.onGoingTodos = state.todos.filter(
+        (todo, index) => index === action.payload
+      );
+      state.todos = state.todos.filter(
+        (todo, index) => index !== action.payload
+      );
     },
   },
 });
