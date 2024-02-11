@@ -7,9 +7,10 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, deleteTodo } from "../../Redux/TodoSlice";
+import { addTodo, deleteTodo, onGoing } from "../../Redux/TodoSlice";
 
 const Todo = () => {
   const [todo, setTodo] = useState("");
@@ -23,6 +24,10 @@ const Todo = () => {
 
   const handleRemoveTodo = (index) => {
     dispatch(deleteTodo(index));
+  };
+
+  const handleOnGoingTodo = (index) => {
+    dispatch(onGoing(index));
   };
   return (
     <ScrollView style={{ padding: 10 }}>
@@ -49,16 +54,25 @@ const Todo = () => {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
+                marginBottom: 20,
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: "black",
+                margin: 10,
               }}
             >
               <Text>
                 {index + 1}. {todo.todo}
               </Text>
-              <TouchableOpacity onPress={() => handleRemoveTodo(index)}>
-                <Text>
+              <View style={{ flexDirection: "row", gap: 20 }}>
+                <TouchableOpacity onPress={() => handleOnGoingTodo(index)}>
+                  <FontAwesome name="hourglass-start" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleRemoveTodo(index)}>
                   <Ionicons name="trash-bin-outline" size={24} color="red" />
-                </Text>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </View>
           );
         })}
@@ -78,13 +92,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     margin: 10,
-  },
-  addIcon: {
-    fontSize: 30,
-    color: "black",
-    backgroundColor: "red",
-    padding: 0,
-    borderRadius: 100,
-    height: 30,
   },
 });
