@@ -6,28 +6,35 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTodo } from "../../Redux/TodoSlice";
 
 const Todo = () => {
   const [todo, setTodo] = useState("");
-  console.log(todo);
+  const todos = useSelector((state) => state.ToDoData);
+  console.log(JSON.stringify(todos, null, 1));
   const dispatch = useDispatch();
-  const handleTodo = () => {
-    dispatch(addTodo());
+  const handleTodo = ({ todo }) => {
+    dispatch(addTodo({ todo }));
   };
   return (
     <View>
       <View style={styles.inputContainer}>
         <TextInput placeholder="Add your to do" onChangeText={setTodo} />
-        <TouchableOpacity onPress={() => handleTodo()}>
+        <TouchableOpacity onPress={() => handleTodo({ todo })}>
           <Text style={styles.addIcon}>+</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity>
-        <Text>Todo</Text>
-      </TouchableOpacity>
       <Text>Add To Do</Text>
+      <View>
+        {todos?.map((todo, index) => {
+          return (
+            <View key={index}>
+              <Text>{todo.todo}</Text>
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 };
