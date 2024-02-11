@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const TodoPage = () => {
+const Todo = () => {
   return (
     <View>
-      <Text>TodoPage</Text>
+      <Text>Todo</Text>
     </View>
   );
 };
 
-export default TodoPage;
+export default Todo;

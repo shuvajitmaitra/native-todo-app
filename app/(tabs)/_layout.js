@@ -4,9 +4,9 @@ import { Tabs } from "expo-router";
 
 const layout = () => {
   return (
-    <Tabs>
+    <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
-        name="ToDo"
+        name="Todo"
         options={{ tabBarLabel: "TODO", title: "TODO", headerShown: false }}
       />
     </Tabs>
