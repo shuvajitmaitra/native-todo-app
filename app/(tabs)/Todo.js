@@ -5,14 +5,24 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../Redux/TodoSlice";
 
 const Todo = () => {
+  const [todo, setTodo] = useState("");
+  console.log(todo);
+  const dispatch = useDispatch();
+  const handleTodo = () => {
+    dispatch(addTodo());
+  };
   return (
     <View>
       <View style={styles.inputContainer}>
-        <TextInput />
-        <Text style={styles.addIcon}>+</Text>
+        <TextInput placeholder="Add your to do" onChangeText={setTodo} />
+        <TouchableOpacity onPress={() => handleTodo()}>
+          <Text style={styles.addIcon}>+</Text>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity>
         <Text>Todo</Text>
