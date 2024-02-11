@@ -1,9 +1,16 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { doneWorks } from "../../Redux/TodoSlice";
+import { Ionicons } from "@expo/vector-icons";
 
 const OnGoing = () => {
   const onGoingWork = useSelector((state) => state.ToDoData.onGoingTodos);
+  const dispatch = useDispatch();
+
+  const handleDoneTodo = (index) => {
+    dispatch(doneWorks(index));
+  };
   return (
     <View>
       <Text>On Going Works</Text>
@@ -21,12 +28,19 @@ const OnGoing = () => {
                 borderWidth: 1,
                 borderRadius: 10,
                 borderColor: "black",
-                margin: 10,
+                marginVertical: 10,
               }}
             >
               <Text>
                 {index + 1}. {todos.todo}
               </Text>
+              <TouchableOpacity onPress={() => handleDoneTodo(index)}>
+                <Ionicons
+                  name="checkmark-done-circle"
+                  size={24}
+                  color="black"
+                />
+              </TouchableOpacity>
             </View>
           );
         })}
